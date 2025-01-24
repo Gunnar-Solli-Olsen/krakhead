@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://yot5jsrtjtyt"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_8pri3"]
+[ext_resource type="Texture2D" uid="uid://dota02bai8x7e" path="res://icon.svg" id="2_ao4b4"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dwavu"]
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_8pri3")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_ao4b4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_dwavu")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
