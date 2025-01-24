@@ -1,0 +1,12 @@
+Three mains parts : 
+I-	Upper part : Most details and important, player swimming, avoiding bubbles, jumping on platforms 
+II-	Bottom part : Darker, krakenman throwing bubbles , less details needed 
+III-	Mid part : bubbles coming up 
+
+Static field : Only the boxs and platforms comes in from both sizes (Maybe from the top ?) 
+
+Bubble comes as a cone from the bottom. 
+The kraken has a charge bar for its bubbles. 
+
+Core Mechanics : Kraken shoots bubble to the man. 
+
