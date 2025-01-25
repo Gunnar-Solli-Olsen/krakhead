@@ -8,8 +8,7 @@ signal on_platform
 @export var SWIM_FORCE = 400
 @export var SWIM_GRAVITY = 100
 @export var SWIM_SPEED = 150
-const SUCTION_FORCE = 1000  # Stronger suction force to drag the player down
-const SWIM_LIMIT = -500  # Make swimming force weaker when inside suction zone
+const SUCTION_FORCE = 100
 
 var min_x = 0
 var max_x = 715
