@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://yot5jsrtjtyt"]
+[gd_scene load_steps=12 format=3 uid="uid://bjjafi3pbio1c"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_8pri3"]
 [ext_resource type="Script" path="res://rigid_body_2d.gd" id="1_66dbi"]
@@ -7,11 +7,16 @@
 [ext_resource type="Script" path="res://suction_bubbles.gd" id="5_qdt62"]
 [ext_resource type="Texture2D" uid="uid://dg6xf2ropyqwq" path="res://bubble.png" id="6_yhq7g"]
 [ext_resource type="Material" uid="uid://bmd4x5i780vtq" path="res://bubbleWhirl.tres" id="7_ti0xe"]
+[ext_resource type="Script" path="res://platform_hitbox.gd" id="3_w2vet"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e1cnx"]
 size = Vector2(181, 20)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m51t6"]
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dwavu"]
+radius = 8.0
+height = 18.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b0w26"]
 size = Vector2(739, 334.5)
@@ -32,8 +37,10 @@ size = Vector2(732, 147)
 
 [node name="mainScene" type="Node2D"]
 
-[node name="Platform" type="StaticBody2D" parent="."]
-visible = false
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(360, 240)
+
+[node name="platform" type="StaticBody2D" parent="."]
 position = Vector2(96, 129)
 script = ExtResource("1_66dbi")
 start_position = Vector2(80, 100)
@@ -41,13 +48,22 @@ end_position = Vector2(650, 100)
 speed = 1.0
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="platform"]
 shape = SubResource("RectangleShape2D_e1cnx")
 
-[node name="Sprite2D" type="Sprite2D" parent="Platform"]
+[node name="Sprite2D" type="Sprite2D" parent="platform"]
 position = Vector2(0.249999, 1)
 scale = Vector2(1.40234, 0.171875)
 texture = ExtResource("2_ao4b4")
+
+[node name="physics_for_player" type="Area2D" parent="platform"]
+physics_interpolation_mode = 2
+position = Vector2(0, -17)
+scale = Vector2(9, 1)
+script = ExtResource("3_w2vet")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="platform/physics_for_player"]
+shape = SubResource("RectangleShape2D_m51t6")
 
 [node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(290, 83)
@@ -59,7 +75,7 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_ao4b4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(2, 0)
+position = Vector2(2, -4)
 shape = SubResource("CapsuleShape2D_dwavu")
 
 [node name="water" type="Area2D" parent="."]
@@ -109,6 +125,10 @@ visible = false
 position = Vector2(4, -11)
 shape = SubResource("RectangleShape2D_fyj7d")
 
+[connection signal="body_entered" from="platform/physics_for_player" to="Player" method="_on_platform_body_entered"]
+[connection signal="body_exited" from="platform/physics_for_player" to="Player" method="_on_platform_body_exited"]
+[connection signal="player_entered" from="platform/physics_for_player" to="Player" method="_on_platform_body_entered"]
+[connection signal="player_exited" from="platform/physics_for_player" to="Player" method="_on_platform_body_exited"]
 [connection signal="body_entered" from="water" to="Player" method="_on_water_body_entered"]
 [connection signal="body_exited" from="water" to="Player" method="_on_water_body_exited"]
 [connection signal="body_entered" from="Suction bubbles" to="Player" method="_on_suction_bubbles_body_entered"]
