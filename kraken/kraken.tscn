@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://4gbtkfr6uoai"]
+
+[ext_resource type="Script" path="res://kraken/kraken_scripts/kraken.gd" id="1_fmmso"]
+[ext_resource type="Texture2D" uid="uid://dota02bai8x7e" path="res://icon.svg" id="1_qgwp8"]
+[ext_resource type="Script" path="res://kraken/kraken_scripts/state_machine.gd" id="3_jt63k"]
+[ext_resource type="Script" path="res://kraken/kraken_scripts/krakenIdle.gd" id="4_n6b3k"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gx5df"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_qgwp8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vc1dn"]
+
+[node name="kraken" type="CharacterBody2D"]
+script = ExtResource("1_fmmso")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-9.53674e-07, 0)
+scale = Vector2(0.214844, 0.265625)
+sprite_frames = SubResource("SpriteFrames_gx5df")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_vc1dn")
+
+[node name="State Machine" type="Node" parent="."]
+script = ExtResource("3_jt63k")
+
+[node name="KrakenIdle" type="Node" parent="State Machine" node_paths=PackedStringArray("Kraken")]
+script = ExtResource("4_n6b3k")
+Kraken = NodePath("../..")
+move_speed = 0.0
