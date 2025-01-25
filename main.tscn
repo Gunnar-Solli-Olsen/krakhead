@@ -1,12 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://bjjafi3pbio1c"]
+[gd_scene load_steps=12 format=3 uid="uid://bjjafi3pbio1c"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_8pri3"]
 [ext_resource type="Script" path="res://rigid_body_2d.gd" id="1_66dbi"]
 [ext_resource type="Texture2D" uid="uid://dota02bai8x7e" path="res://icon.svg" id="2_ao4b4"]
 [ext_resource type="Script" path="res://water.gd" id="3_ohyn7"]
+[ext_resource type="Script" path="res://platform_hitbox.gd" id="3_w2vet"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e1cnx"]
 size = Vector2(181, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m51t6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dwavu"]
 radius = 8.0
@@ -31,7 +34,7 @@ fill_to = Vector2(0, 0)
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(360, 240)
 
-[node name="RigidBody2D" type="StaticBody2D" parent="."]
+[node name="platform" type="StaticBody2D" parent="."]
 position = Vector2(96, 129)
 script = ExtResource("1_66dbi")
 start_position = Vector2(80, 100)
@@ -39,13 +42,22 @@ end_position = Vector2(650, 100)
 speed = 1.0
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="platform"]
 shape = SubResource("RectangleShape2D_e1cnx")
 
-[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="platform"]
 position = Vector2(0.249999, 1)
 scale = Vector2(1.40234, 0.171875)
 texture = ExtResource("2_ao4b4")
+
+[node name="physics_for_player" type="Area2D" parent="platform"]
+physics_interpolation_mode = 2
+position = Vector2(0, -17)
+scale = Vector2(9, 1)
+script = ExtResource("3_w2vet")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="platform/physics_for_player"]
+shape = SubResource("RectangleShape2D_m51t6")
 
 [node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(290, 83)
@@ -73,5 +85,9 @@ debug_color = Color(0, 0.454902, 0.701961, 0.419608)
 texture = SubResource("GradientTexture2D_mdfag")
 polygon = PackedVector2Array(-341, -158, 396, -158, 397, 183, -342, 179)
 
+[connection signal="body_entered" from="platform/physics_for_player" to="Player" method="_on_platform_body_entered"]
+[connection signal="body_exited" from="platform/physics_for_player" to="Player" method="_on_platform_body_exited"]
+[connection signal="player_entered" from="platform/physics_for_player" to="Player" method="_on_platform_body_entered"]
+[connection signal="player_exited" from="platform/physics_for_player" to="Player" method="_on_platform_body_exited"]
 [connection signal="body_entered" from="water" to="Player" method="_on_water_body_entered"]
 [connection signal="body_exited" from="water" to="Player" method="_on_water_body_exited"]

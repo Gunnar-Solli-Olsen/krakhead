@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+signal on_platform
 # Constants
 @export var GRAVITY = 500
 @export var JUMP_FORCE = -300
@@ -17,12 +17,17 @@ var max_y = 420
 var is_in_water = false
 # switch to play water enter animation, 
 # sounds and slow player falling speed down
-
 var entered_water = false 
+
+var current_platform : StaticBody2D = null
+var platform_velocity: Vector2 = Vector2.ZERO
+
 
 func _ready():
 	# Ensure the player is rendered above the water (higher value)
 	z_index = 1  # Default value is 0; this puts the player above water if water has Z-index 0
+	var platforms = get_tree().get_nodes_in_group("platform")
+
 
 func _physics_process(delta):
 	# Horizontal movement
@@ -31,14 +36,12 @@ func _physics_process(delta):
 		direction.x -= 1
 	if Input.is_action_pressed("ui_right"):
 		direction.x += 1
-
-
 	
-	
+	# If player enters water turn on water physics
 	if global_position.y > 150:
 		is_in_water = true
-		if (not entered_water):
-			velocity.y*=1/2
+		if (not entered_water): # entering water should lower speed 
+			velocity.y*=4/6
 			entered_water = true
 		# Swimming logic
 	else:
@@ -48,16 +51,15 @@ func _physics_process(delta):
 	if is_in_water: # if player is swimming
 		if Input.is_action_pressed("ui_up"):
 			velocity.y += (SWIM_GRAVITY - SWIM_FORCE) * delta
-			print("swimforce: ", (SWIM_GRAVITY - SWIM_FORCE) * delta)
+			#print("swimforce: ", (SWIM_GRAVITY - SWIM_FORCE) * delta)
 		else:
 			velocity.y += SWIM_GRAVITY * delta
-			print("fallforce: ", (SWIM_GRAVITY) * delta)
+			#print("fallforce: ", (SWIM_GRAVITY) * delta)
 				# Apply horizontal speed
 		velocity.x = direction.x * SWIM_SPEED # this is different if the player is in water
+			
+	else:	# Apply gravity and jumping while above water 
 
-		
-	else:
-		# Apply gravity and jumping
 		velocity.y += GRAVITY * delta
 		if Input.is_action_just_pressed("ui_up") and is_on_floor():
 			velocity.y = JUMP_FORCE
@@ -67,7 +69,8 @@ func _physics_process(delta):
 	# Limit fall speed
 	velocity.y = clamp(velocity.y, -MAX_FALL_SPEED, MAX_FALL_SPEED)
 	
-	
+	if (Input.is_action_pressed("SOS") and abs(velocity.y) < 1):
+		print("sos")
 		# Get the current position of the CharacterBody3D node
 	var current_position = global_position
 	
@@ -80,14 +83,31 @@ func _physics_process(delta):
 	# Apply movement
 	move_and_slide()
 
+	# Check for the moving platform
+
+
 # Update the water state when the player enters water
 func _on_water_body_entered(body: Node2D) -> void:
+	print("player entered water")
 	pass
 	#if body.name == "Player":
 	#	is_in_water = true
 
 # Update the water state when the player exits the water
 func _on_water_body_exited(body: Node2D) -> void:
+	print("player exited water")
+
 	pass
 	#if body.name == "Player":
 	#	is_in_water = false
+	
+func _on_platform_body_entered(body):
+	if body.name == "Player":
+		print("player on platform")
+		emit_signal("player_entered", self)
+
+
+func _on_platform_body_exited(body):
+	if body.name == "Player":
+		print("player left platform")
+		emit_signal("player_exited", self)

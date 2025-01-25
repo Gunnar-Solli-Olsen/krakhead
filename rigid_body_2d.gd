@@ -5,6 +5,8 @@ extends StaticBody2D  # Use Node2D if you don't need physics interactions
 @export var end_position: Vector2
 @export var speed: float = 100.0  # Speed of the platform
 
+
+
 # Internal state
 var moving_to_end: bool = true  # Direction of movement
 
@@ -24,3 +26,4 @@ func _physics_process(delta):
 	# Check if the platform reached the target position
 	if position.distance_to(target_position) < 1.0:
 		moving_to_end = not moving_to_end  # Reverse direction
+		
