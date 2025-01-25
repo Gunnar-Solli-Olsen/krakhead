@@ -37,9 +37,11 @@ func _physics_process(delta):
 	var direction = Vector2.ZERO
 	if Input.is_action_pressed("ui_left"):
 		direction.x -= 1
+		$Sprite2D.flip_h = true
 	if Input.is_action_pressed("ui_right"):
 		direction.x += 1
-	
+		$Sprite2D.flip_h = false
+
 	# If player enters water turn on water physics
 	if global_position.y > 150:
 		is_in_water = true
