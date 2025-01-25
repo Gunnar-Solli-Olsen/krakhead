@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://yot5jsrtjtyt"]
+[gd_scene load_steps=10 format=3 uid="uid://bjjafi3pbio1c"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_8pri3"]
 [ext_resource type="Script" path="res://rigid_body_2d.gd" id="1_66dbi"]
@@ -9,6 +9,8 @@
 size = Vector2(181, 20)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dwavu"]
+radius = 8.0
+height = 18.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b0w26"]
 size = Vector2(739, 334.5)
@@ -25,6 +27,9 @@ fill_from = Vector2(0.0339806, 1)
 fill_to = Vector2(0, 0)
 
 [node name="mainScene" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(360, 240)
 
 [node name="RigidBody2D" type="StaticBody2D" parent="."]
 position = Vector2(96, 129)
@@ -52,7 +57,7 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_ao4b4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(2, 0)
+position = Vector2(2, -4)
 shape = SubResource("CapsuleShape2D_dwavu")
 
 [node name="water" type="Area2D" parent="."]
