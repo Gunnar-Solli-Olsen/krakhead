@@ -68,5 +68,5 @@ debug_color = Color(0, 0.454902, 0.701961, 0.419608)
 texture = SubResource("GradientTexture2D_mdfag")
 polygon = PackedVector2Array(-341, -158, 396, -158, 397, 183, -342, 179)
 
-[connection signal="body_entered" from="water" to="Player" method="_on_water_body_entered"]
-[connection signal="body_exited" from="water" to="Player" method="_on_water_body_exited"]
+[connection signal="area_entered" from="water" to="RigidBody2D" method="_on_water_area_entered"]
+[connection signal="area_exited" from="water" to="RigidBody2D" method="_on_water_area_exited"]
