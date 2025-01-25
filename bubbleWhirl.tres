@@ -1,0 +1,42 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=7 format=3 uid="uid://bmd4x5i780vtq"]
+
+[sub_resource type="Curve" id="Curve_pey86"]
+_data = [Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="CurveTexture" id="CurveTexture_wapla"]
+curve = SubResource("Curve_pey86")
+
+[sub_resource type="Curve" id="Curve_wujwq"]
+_data = [Vector2(0.313333, 0.417582), 0.0, 0.0, 0, 0, Vector2(0.993333, 0.802198), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ewdoc"]
+curve = SubResource("Curve_wujwq")
+
+[sub_resource type="Curve" id="Curve_0cjwi"]
+max_value = 3.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_34lsh"]
+curve = SubResource("Curve_0cjwi")
+
+[resource]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, 50, 0)
+angular_velocity_min = -178.06
+angular_velocity_max = -92.9
+gravity = Vector3(0, -98, 0)
+linear_accel_min = -2.23517e-06
+linear_accel_max = 32.26
+scale_min = 0.0
+scale_max = 0.2
+scale_curve = SubResource("CurveTexture_ewdoc")
+scale_over_velocity_max = 50.0
+scale_over_velocity_curve = SubResource("CurveTexture_34lsh")
+alpha_curve = SubResource("CurveTexture_wapla")
+turbulence_enabled = true
+turbulence_noise_strength = 5.0
+turbulence_noise_scale = 8.0
+turbulence_noise_speed_random = 2.73

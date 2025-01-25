@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://yot5jsrtjtyt"]
+[gd_scene load_steps=13 format=3 uid="uid://yot5jsrtjtyt"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_8pri3"]
 [ext_resource type="Script" path="res://rigid_body_2d.gd" id="1_66dbi"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://water.gd" id="3_ohyn7"]
 [ext_resource type="Script" path="res://suction_bubbles.gd" id="5_qdt62"]
 [ext_resource type="Texture2D" uid="uid://dg6xf2ropyqwq" path="res://bubble.png" id="6_yhq7g"]
-[ext_resource type="Material" uid="uid://bmd4x5i780vtq" path="res://bubbleWhirl.tres" id="7_ti0xe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e1cnx"]
 size = Vector2(181, 20)
@@ -27,8 +26,12 @@ height = 66
 fill_from = Vector2(0.0339806, 1)
 fill_to = Vector2(0, 0)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fyj7d"]
-size = Vector2(732, 147)
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tpeao"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+initial_velocity_max = 16.13
+gravity = Vector3(0, 98, 0)
 
 [node name="mainScene" type="Node2D"]
 
@@ -50,6 +53,7 @@ scale = Vector2(1.40234, 0.171875)
 texture = ExtResource("2_ao4b4")
 
 [node name="Player" type="CharacterBody2D" parent="."]
+visible = false
 position = Vector2(290, 83)
 script = ExtResource("1_8pri3")
 
@@ -82,32 +86,12 @@ script = ExtResource("5_qdt62")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Suction bubbles"]
 polygon = PackedVector2Array(-15, -13, -101, -268, 120, -268, 15, -13)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Suction bubbles/CollisionPolygon2D"]
-root_node = NodePath("../..")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Suction bubbles"]
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Suction bubbles/CollisionPolygon2D"]
-top_level = true
-position = Vector2(355, 298)
-scale = Vector2(1, 1)
-amount = 15
-process_material = ExtResource("7_ti0xe")
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Suction bubbles"]
+position = Vector2(-356, -411)
+process_material = SubResource("ParticleProcessMaterial_tpeao")
 texture = ExtResource("6_yhq7g")
-lifetime = 5.0
-
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(357, 78)
-
-[node name="Sky" type="Polygon2D" parent="Area2D"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(18, 1384)
-scale = Vector2(0.296896, 4.8868)
-polygon = PackedVector2Array(-1296.75, -301.22, -1320.33, -269.911, 1195.7, -270.116, 1199.07, -301.22)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-visible = false
-position = Vector2(4, -11)
-shape = SubResource("RectangleShape2D_fyj7d")
 
 [connection signal="body_entered" from="water" to="Player" method="_on_water_body_entered"]
 [connection signal="body_exited" from="water" to="Player" method="_on_water_body_exited"]
