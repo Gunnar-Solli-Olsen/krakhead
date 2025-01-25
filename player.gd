@@ -82,7 +82,7 @@ func _physics_process(delta):
 	
 	# Clamp the x position
 	current_position.x = clamp(current_position.x, min_x, max_x)
-	current_position.y = clamp(current_position.y, min_y, max_y)
+	#current_position.y = clamp(current_position.y, min_y, max_y)
 
 	# Apply the new position back to the CharacterBody3D
 	global_position = current_position
@@ -107,15 +107,17 @@ func _on_water_body_exited(body: Node2D) -> void:
 	#if body.name == "Player":
 	#	is_in_water = false
 	
-func _on_platform_body_entered(body):
+func _on_platform_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		print("player on platform")
-		emit_signal("player_entered", self)
+		#emit_signal("player_entered", self)
+		self.reparent(body.get_parent())
 
-func _on_platform_body_exited(body):
+func _on_platform_body_exited(body: Node2D) -> void:
 	if body.name == "Player":
 		print("player left platform")
-		emit_signal("player_exited", self)
+		#emit_signal("player_exited", self)
+		self.reparent($mainScene)
 
 # Called when the player enters the suction cone
 func _on_suction_bubbles_body_entered(body: Node2D) -> void:
@@ -126,5 +128,3 @@ func _on_suction_bubbles_body_entered(body: Node2D) -> void:
 func _on_suction_bubbles_body_exited(body: Node) -> void:
 	if body.name == "Player":
 		is_in_suction_cone = false
-
-

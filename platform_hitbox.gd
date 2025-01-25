@@ -1,6 +1,6 @@
 extends Area2D
 	
-#signals for player interactions 
+#signals to player.gd, functions are defined there 
 signal player_entered(platform) 
 signal player_exited(platform)
 
@@ -15,14 +15,3 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
-func _on_platform_body_entered(body):
-	if body.is_in_group("Player"):
-		emit_signal("player_entered", self)
-	print("player on platform")
-
-
-func _on_platform_body_exited(body):
-	if body.is_in_group("Player"):
-		print("player left platform")
-		emit_signal("player_exited", self)

@@ -1,13 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://bjjafi3pbio1c"]
+[gd_scene load_steps=16 format=3 uid="uid://bjjafi3pbio1c"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_8pri3"]
 [ext_resource type="Script" path="res://rigid_body_2d.gd" id="1_66dbi"]
 [ext_resource type="Texture2D" uid="uid://dota02bai8x7e" path="res://icon.svg" id="2_ao4b4"]
 [ext_resource type="Script" path="res://water.gd" id="3_ohyn7"]
+[ext_resource type="Script" path="res://platform_hitbox.gd" id="3_w2vet"]
 [ext_resource type="Script" path="res://suction_bubbles.gd" id="5_qdt62"]
 [ext_resource type="Texture2D" uid="uid://dg6xf2ropyqwq" path="res://bubble.png" id="6_yhq7g"]
-[ext_resource type="Material" uid="uid://bmd4x5i780vtq" path="res://bubbleWhirl.tres" id="7_ti0xe"]
-[ext_resource type="Script" path="res://platform_hitbox.gd" id="3_w2vet"]
+[ext_resource type="Material" uid="uid://co0jkcwsp6fmv" path="res://bubbleWhirl.tres" id="7_ti0xe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e1cnx"]
 size = Vector2(181, 20)
@@ -40,7 +40,9 @@ size = Vector2(732, 147)
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(360, 240)
 
-[node name="platform" type="StaticBody2D" parent="."]
+[node name="platform" type="AnimatableBody2D" parent="."]
+light_mask = 524800
+visibility_layer = 524800
 position = Vector2(96, 129)
 script = ExtResource("1_66dbi")
 start_position = Vector2(80, 100)
@@ -104,13 +106,13 @@ root_node = NodePath("../..")
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Suction bubbles/CollisionPolygon2D"]
 top_level = true
 position = Vector2(355, 298)
-scale = Vector2(1, 1)
 amount = 15
 process_material = ExtResource("7_ti0xe")
 texture = ExtResource("6_yhq7g")
 lifetime = 5.0
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 position = Vector2(357, 78)
 
 [node name="Sky" type="Polygon2D" parent="Area2D"]
