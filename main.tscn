@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bjjafi3pbio1c"]
+[gd_scene load_steps=20 format=3 uid="uid://bjjafi3pbio1c"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_8pri3"]
 [ext_resource type="Script" path="res://rigid_body_2d.gd" id="1_66dbi"]
@@ -38,7 +38,15 @@ fill_to = Vector2(0, 0)
 size = Vector2(732, 147)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_txovm"]
-distance = -23.0
+distance = -21.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ycd04"]
+normal = Vector2(0.999956, -0.00934539)
+distance = 2.90641
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uf8fy"]
+normal = Vector2(-1, 0)
+distance = -707.0
 
 [node name="mainScene" type="Node2D"]
 
@@ -135,11 +143,24 @@ shape = SubResource("RectangleShape2D_fyj7d")
 [node name="kraken" parent="." instance=ExtResource("4_4exim")]
 position = Vector2(356, 458)
 
-[node name="Area2D2" type="Area2D" parent="."]
+[node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2(356, 458)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+[node name="Groud Bound" type="CollisionShape2D" parent="Ground"]
+position = Vector2(-70, 4)
 shape = SubResource("WorldBoundaryShape2D_txovm")
+
+[node name="Left Wall" type="StaticBody2D" parent="."]
+
+[node name="Left Bound" type="CollisionShape2D" parent="Left Wall"]
+position = Vector2(-17, 68)
+shape = SubResource("WorldBoundaryShape2D_ycd04")
+
+[node name="Right Wall" type="StaticBody2D" parent="."]
+
+[node name="Right Bound" type="CollisionShape2D" parent="Right Wall"]
+position = Vector2(19, 105)
+shape = SubResource("WorldBoundaryShape2D_uf8fy")
 
 [connection signal="body_entered" from="platform/physics_for_player" to="Player" method="_on_platform_body_entered"]
 [connection signal="body_exited" from="platform/physics_for_player" to="Player" method="_on_platform_body_exited"]
