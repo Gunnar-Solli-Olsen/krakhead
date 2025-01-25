@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bjjafi3pbio1c"]
+[gd_scene load_steps=21 format=3 uid="uid://bjjafi3pbio1c"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_8pri3"]
 [ext_resource type="Script" path="res://rigid_body_2d.gd" id="1_66dbi"]
@@ -98,6 +98,7 @@ position = Vector2(328, 300)
 script = ExtResource("3_ohyn7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="water"]
+visible = false
 position = Vector2(28, 11)
 shape = SubResource("RectangleShape2D_b0w26")
 debug_color = Color(0, 0.454902, 0.701961, 0.419608)

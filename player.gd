@@ -113,13 +113,11 @@ func _on_platform_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		print("player on platform")
 		#emit_signal("player_entered", self)
-		self.reparent(body.get_parent())
 
 func _on_platform_body_exited(body: Node2D) -> void:
 	if body.name == "Player":
 		print("player left platform")
 		#emit_signal("player_exited", self)
-		self.reparent($mainScene)
 
 # Called when the player enters the suction cone
 func _on_suction_bubbles_body_entered(body: Node2D) -> void:
