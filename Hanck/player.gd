@@ -8,8 +8,10 @@ signal on_platform
 @export var SWIM_FORCE = 400
 @export var SWIM_GRAVITY = 100
 @export var SWIM_SPEED = 150
+@export var WATER_HEIGHT := 150
 const SUCTION_FORCE = 1000  # Stronger suction force to drag the player down
 const SWIM_LIMIT = -500  # Make swimming force weaker when inside suction zone
+
 
 var min_x = 0
 var max_x = 715
@@ -37,13 +39,13 @@ func _physics_process(delta):
 	var direction = Vector2.ZERO
 	if Input.is_action_pressed("ui_left"):
 		direction.x -= 1
-		$Sprite2D.flip_h = true
+		$Sprite2D2.flip_h = true
 	if Input.is_action_pressed("ui_right"):
 		direction.x += 1
-		$Sprite2D.flip_h = false
+		$Sprite2D2.flip_h = false
 
 	# If player enters water turn on water physics
-	if global_position.y > 150:
+	if global_position.y > WATER_HEIGHT:
 		is_in_water = true
 		if (not entered_water): # entering water should lower speed 
 			velocity.y*=4/6
@@ -80,14 +82,14 @@ func _physics_process(delta):
 	if (Input.is_action_pressed("SOS") and abs(velocity.y) < 1):
 		print("sos")
 		# Get the current position of the CharacterBody3D node
-	var current_position = global_position
-	
-	# Clamp the x position
-	current_position.x = clamp(current_position.x, min_x, max_x)
-	#current_position.y = clamp(current_position.y, min_y, max_y)
-
-	# Apply the new position back to the CharacterBody3D
-	global_position = current_position
+	#var current_position = global_position
+	#
+	## Clamp the x position
+	#current_position.x = clamp(current_position.x, min_x, max_x) 
+	##current_position.y = clamp(current_position.y, min_y, max_y)
+#
+	## Apply the new position back to the CharacterBody3D
+	#global_position = current_position
 	# Apply movement
 	move_and_slide()
 
@@ -122,11 +124,21 @@ func _on_platform_body_exited(body: Node2D) -> void:
 		self.reparent($mainScene)
 
 # Called when the player enters the suction cone
-func _on_suction_bubbles_body_entered(body: Node2D) -> void:
+#func _on_suction_bubbles_body_entered(body: Node2D) -> void:
+	#if body.name == "Player":
+		#is_in_suction_cone = true
+
+# Called when the player exits the suction cone
+#func _on_suction_bubbles_body_exited(body: Node) -> void:
+	#if body.name == "Player":
+		#is_in_suction_cone = false
+
+
+func _on_suction_bubbles_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if body.name == "Player":
 		is_in_suction_cone = true
 
-# Called when the player exits the suction cone
-func _on_suction_bubbles_body_exited(body: Node) -> void:
+
+func _on_suction_bubbles_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if body.name == "Player":
 		is_in_suction_cone = false

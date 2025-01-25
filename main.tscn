@@ -1,27 +1,15 @@
-[gd_scene load_steps=20 format=3 uid="uid://bjjafi3pbio1c"]
+[gd_scene load_steps=15 format=3 uid="uid://bjjafi3pbio1c"]
 
-[ext_resource type="Script" path="res://player.gd" id="1_8pri3"]
-[ext_resource type="Script" path="res://rigid_body_2d.gd" id="1_66dbi"]
-[ext_resource type="Texture2D" uid="uid://dota02bai8x7e" path="res://icon.svg" id="2_ao4b4"]
 [ext_resource type="Script" path="res://water.gd" id="3_ohyn7"]
-[ext_resource type="Script" path="res://platform_hitbox.gd" id="3_w2vet"]
 [ext_resource type="PackedScene" uid="uid://4gbtkfr6uoai" path="res://kraken/kraken.tscn" id="4_4exim"]
 [ext_resource type="Script" path="res://suction_bubbles.gd" id="5_qdt62"]
-[ext_resource type="Texture2D" uid="uid://dqfjeirkobsgc" path="res://idle1.svg" id="5_vemno"]
 [ext_resource type="Texture2D" uid="uid://dg6xf2ropyqwq" path="res://bubble.png" id="6_yhq7g"]
-[ext_resource type="Material" uid="uid://co0jkcwsp6fmv" path="res://bubbleWhirl.tres" id="7_ti0xe"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e1cnx"]
-size = Vector2(181, 20)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_m51t6"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dwavu"]
-radius = 8.0
-height = 60.0
+[ext_resource type="PackedScene" uid="uid://c5u7ghp8ufh41" path="res://Debree/platform.tscn" id="7_lna6v"]
+[ext_resource type="Material" uid="uid://bmd4x5i780vtq" path="res://bubbleWhirl.tres" id="7_ti0xe"]
+[ext_resource type="PackedScene" uid="uid://bjqt57vqlw5so" path="res://Hanck/Hanck.tscn" id="9_yd1pn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b0w26"]
-size = Vector2(739, 334.5)
+size = Vector2(1433, 952)
 
 [sub_resource type="Gradient" id="Gradient_fx3a0"]
 offsets = PackedFloat32Array(0, 0.514085, 1, 2, 5)
@@ -38,72 +26,38 @@ fill_to = Vector2(0, 0)
 size = Vector2(732, 147)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_txovm"]
-distance = -21.0
+distance = -257.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ycd04"]
 normal = Vector2(0.999956, -0.00934539)
-distance = 2.90641
+distance = -338.817
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uf8fy"]
 normal = Vector2(-1, 0)
-distance = -707.0
+distance = -1058.0
 
 [node name="mainScene" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(360, 240)
-
-[node name="platform" type="AnimatableBody2D" parent="."]
-light_mask = 524800
-visibility_layer = 524800
-position = Vector2(96, 129)
-script = ExtResource("1_66dbi")
-start_position = Vector2(80, 100)
-end_position = Vector2(650, 100)
-speed = 1.0
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="platform"]
-shape = SubResource("RectangleShape2D_e1cnx")
-
-[node name="Sprite2D" type="Sprite2D" parent="platform"]
-position = Vector2(0.249999, 1)
-scale = Vector2(1.40234, 0.171875)
-texture = ExtResource("2_ao4b4")
-
-[node name="physics_for_player" type="Area2D" parent="platform"]
-physics_interpolation_mode = 2
-position = Vector2(0, -17)
-scale = Vector2(9, 1)
-script = ExtResource("3_w2vet")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="platform/physics_for_player"]
-shape = SubResource("RectangleShape2D_m51t6")
-
-[node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(290, 83)
-script = ExtResource("1_8pri3")
-
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
-position = Vector2(2.00003, -3)
-scale = Vector2(2, 2)
-texture = ExtResource("5_vemno")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(5, -4)
-shape = SubResource("CapsuleShape2D_dwavu")
+zoom = Vector2(0.5, 0.5)
 
 [node name="water" type="Area2D" parent="."]
 position = Vector2(328, 300)
 script = ExtResource("3_ohyn7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="water"]
-position = Vector2(28, 11)
+visible = false
+position = Vector2(30.5, -58)
 shape = SubResource("RectangleShape2D_b0w26")
 debug_color = Color(0, 0.454902, 0.701961, 0.419608)
 
 [node name="Sprite2D" type="Polygon2D" parent="water"]
+visible = false
+position = Vector2(-27, -83)
+scale = Vector2(2, 2)
 texture = SubResource("GradientTexture2D_mdfag")
+texture_scale = Vector2(0.5, 0.5)
 polygon = PackedVector2Array(-341, -158, 396, -158, 397, 183, -342, 179)
 
 [node name="Suction bubbles" type="Area2D" parent="."]
@@ -141,13 +95,13 @@ position = Vector2(4, -11)
 shape = SubResource("RectangleShape2D_fyj7d")
 
 [node name="kraken" parent="." instance=ExtResource("4_4exim")]
-position = Vector2(356, 458)
+position = Vector2(331, 680)
 
 [node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2(356, 458)
 
 [node name="Groud Bound" type="CollisionShape2D" parent="Ground"]
-position = Vector2(-70, 4)
+position = Vector2(-46, 4)
 shape = SubResource("WorldBoundaryShape2D_txovm")
 
 [node name="Left Wall" type="StaticBody2D" parent="."]
@@ -162,11 +116,9 @@ shape = SubResource("WorldBoundaryShape2D_ycd04")
 position = Vector2(19, 105)
 shape = SubResource("WorldBoundaryShape2D_uf8fy")
 
-[connection signal="body_entered" from="platform/physics_for_player" to="Player" method="_on_platform_body_entered"]
-[connection signal="body_exited" from="platform/physics_for_player" to="Player" method="_on_platform_body_exited"]
-[connection signal="player_entered" from="platform/physics_for_player" to="Player" method="_on_platform_body_entered"]
-[connection signal="player_exited" from="platform/physics_for_player" to="Player" method="_on_platform_body_exited"]
-[connection signal="body_entered" from="water" to="Player" method="_on_water_body_entered"]
-[connection signal="body_exited" from="water" to="Player" method="_on_water_body_exited"]
-[connection signal="body_entered" from="Suction bubbles" to="Player" method="_on_suction_bubbles_body_entered"]
-[connection signal="body_exited" from="Suction bubbles" to="Player" method="_on_suction_bubbles_body_exited"]
+[node name="Player" parent="." instance=ExtResource("9_yd1pn")]
+
+[node name="platform" parent="." instance=ExtResource("7_lna6v")]
+
+[connection signal="body_shape_entered" from="Suction bubbles" to="Player" method="_on_suction_bubbles_body_shape_entered"]
+[connection signal="body_shape_exited" from="Suction bubbles" to="Player" method="_on_suction_bubbles_body_shape_exited"]
