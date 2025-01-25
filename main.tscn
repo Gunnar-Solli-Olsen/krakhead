@@ -1,13 +1,14 @@
-[gd_scene load_steps=16 format=3 uid="uid://bjjafi3pbio1c"]
+[gd_scene load_steps=18 format=3 uid="uid://bjjafi3pbio1c"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_8pri3"]
 [ext_resource type="Script" path="res://rigid_body_2d.gd" id="1_66dbi"]
 [ext_resource type="Texture2D" uid="uid://dota02bai8x7e" path="res://icon.svg" id="2_ao4b4"]
 [ext_resource type="Script" path="res://water.gd" id="3_ohyn7"]
 [ext_resource type="Script" path="res://platform_hitbox.gd" id="3_w2vet"]
+[ext_resource type="PackedScene" uid="uid://4gbtkfr6uoai" path="res://kraken/kraken.tscn" id="4_4exim"]
 [ext_resource type="Script" path="res://suction_bubbles.gd" id="5_qdt62"]
 [ext_resource type="Texture2D" uid="uid://dg6xf2ropyqwq" path="res://bubble.png" id="6_yhq7g"]
-[ext_resource type="Material" uid="uid://co0jkcwsp6fmv" path="res://bubbleWhirl.tres" id="7_ti0xe"]
+[ext_resource type="Material" uid="uid://bmd4x5i780vtq" path="res://bubbleWhirl.tres" id="7_ti0xe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e1cnx"]
 size = Vector2(181, 20)
@@ -34,6 +35,9 @@ fill_to = Vector2(0, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fyj7d"]
 size = Vector2(732, 147)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_txovm"]
+distance = -23.0
 
 [node name="mainScene" type="Node2D"]
 
@@ -126,6 +130,15 @@ polygon = PackedVector2Array(-1296.75, -301.22, -1320.33, -269.911, 1195.7, -270
 visible = false
 position = Vector2(4, -11)
 shape = SubResource("RectangleShape2D_fyj7d")
+
+[node name="kraken" parent="." instance=ExtResource("4_4exim")]
+position = Vector2(356, 458)
+
+[node name="Area2D2" type="Area2D" parent="."]
+position = Vector2(356, 458)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+shape = SubResource("WorldBoundaryShape2D_txovm")
 
 [connection signal="body_entered" from="platform/physics_for_player" to="Player" method="_on_platform_body_entered"]
 [connection signal="body_exited" from="platform/physics_for_player" to="Player" method="_on_platform_body_exited"]
