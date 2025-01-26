@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ny3uhwak81yj"]
+[gd_scene load_steps=23 format=3 uid="uid://b7you7yhh1qd5"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_ifowg"]
 [ext_resource type="Texture2D" uid="uid://c1ul8vdmb2h1s" path="res://krakman/engaged.png" id="2_nilay"]
@@ -120,12 +120,14 @@ position = Vector2(290, 83)
 script = ExtResource("1_ifowg")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
+z_index = 1
 position = Vector2(3.00003, -3)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_444yx")
 animation = &"swim"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 3
 position = Vector2(5, -4)
 shape = SubResource("CapsuleShape2D_dwavu")
 
