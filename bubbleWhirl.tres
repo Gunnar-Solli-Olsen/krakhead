@@ -24,7 +24,6 @@ curve = SubResource("Curve_0cjwi")
 
 [resource]
 particle_flag_disable_z = true
-emission_shape_offset = Vector3(0, 50, 0)
 angular_velocity_min = -178.06
 angular_velocity_max = -92.9
 gravity = Vector3(0, -98, 0)

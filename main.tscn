@@ -1,8 +1,9 @@
 [gd_scene load_steps=41 format=3 uid="uid://bjjafi3pbio1c"]
 
+[ext_resource type="Script" path="res://main.gd" id="1_6pdqs"]
 [ext_resource type="Script" path="res://player.gd" id="1_8pri3"]
 [ext_resource type="Script" path="res://rigid_body_2d.gd" id="1_66dbi"]
-[ext_resource type="Texture2D" uid="uid://dota02bai8x7e" path="res://icon.svg" id="2_ao4b4"]
+[ext_resource type="Texture2D" uid="uid://db2vm4aijcock" path="res://images/plank.png" id="3_8mx53"]
 [ext_resource type="Script" path="res://water.gd" id="3_ohyn7"]
 [ext_resource type="Script" path="res://platform_hitbox.gd" id="3_w2vet"]
 [ext_resource type="PackedScene" uid="uid://4gbtkfr6uoai" path="res://kraken/kraken.tscn" id="4_4exim"]
@@ -19,9 +20,10 @@
 [ext_resource type="AudioStream" uid="uid://btpqargl26odu" path="res://Audio/Sea background by digifishmusic edited .wav" id="14_5uqvs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e1cnx"]
-size = Vector2(181, 20)
+size = Vector2(162, 17)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m51t6"]
+size = Vector2(18, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fmul3"]
 atlas = ExtResource("5_y5htm")
@@ -158,6 +160,7 @@ normal = Vector2(-1, 0)
 distance = -707.0
 
 [node name="mainScene" type="Node2D"]
+script = ExtResource("1_6pdqs")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(360, 240)
@@ -165,31 +168,39 @@ position = Vector2(360, 240)
 [node name="platform" type="AnimatableBody2D" parent="."]
 light_mask = 524800
 visibility_layer = 524800
+z_index = 2
 position = Vector2(96, 129)
 script = ExtResource("1_66dbi")
-start_position = Vector2(80, 100)
-end_position = Vector2(650, 100)
+start_position = Vector2(80, 130)
+end_position = Vector2(650, 130)
 speed = 1.0
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="platform"]
+z_index = 2
+position = Vector2(14, 12.5)
 shape = SubResource("RectangleShape2D_e1cnx")
 
 [node name="Sprite2D" type="Sprite2D" parent="platform"]
-position = Vector2(0.249999, 1)
-scale = Vector2(1.40234, 0.171875)
-texture = ExtResource("2_ao4b4")
+z_index = 2
+position = Vector2(9.99999, 10)
+scale = Vector2(0.473633, 0.288086)
+texture = ExtResource("3_8mx53")
 
 [node name="physics_for_player" type="Area2D" parent="platform"]
 physics_interpolation_mode = 2
+z_index = 2
 position = Vector2(0, -17)
 scale = Vector2(9, 1)
 script = ExtResource("3_w2vet")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="platform/physics_for_player"]
+z_index = 2
+position = Vector2(1.55556, 29)
 shape = SubResource("RectangleShape2D_m51t6")
 
 [node name="Player" type="CharacterBody2D" parent="."]
+z_index = 3
 position = Vector2(290, 83)
 script = ExtResource("1_8pri3")
 
@@ -227,45 +238,44 @@ shape = SubResource("RectangleShape2D_b0w26")
 debug_color = Color(0, 0.454902, 0.701961, 0.419608)
 
 [node name="Sprite2D" type="Polygon2D" parent="water"]
+visible = false
+position = Vector2(-27.5941, 0)
+scale = Vector2(1.43978, 1)
 texture = SubResource("GradientTexture2D_mdfag")
 polygon = PackedVector2Array(-341, -158, 396, -158, 397, 183, -342, 179)
 
-[node name="Suction bubbles" type="Area2D" parent="."]
-position = Vector2(356, 411)
-script = ExtResource("5_qdt62")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Suction bubbles"]
-polygon = PackedVector2Array(-15, -13, -101, -268, 120, -268, 15, -13)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Suction bubbles/CollisionPolygon2D"]
-root_node = NodePath("../..")
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Suction bubbles/CollisionPolygon2D"]
-top_level = true
-position = Vector2(355, 298)
-amount = 15
-process_material = ExtResource("7_ti0xe")
-texture = ExtResource("6_yhq7g")
-lifetime = 5.0
+[node name="Sprite2D2" type="Sprite2D" parent="water"]
+position = Vector2(12.5, 10.5)
+scale = Vector2(1.49028, 0.71875)
+texture = ExtResource("8_7njjf")
 
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
+z_index = 1
 position = Vector2(357, 78)
 
 [node name="Sky" type="Polygon2D" parent="Area2D"]
+visible = false
 light_mask = 2
 visibility_layer = 2
+z_index = 1
 position = Vector2(18, 1384)
 scale = Vector2(0.296896, 4.8868)
 polygon = PackedVector2Array(-1296.75, -301.22, -1320.33, -269.911, 1195.7, -270.116, 1199.07, -301.22)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 visible = false
+z_index = 1
 position = Vector2(4, -11)
 shape = SubResource("RectangleShape2D_fyj7d")
 
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+z_index = 2
+position = Vector2(-12.5, 117)
+scale = Vector2(1.32917, 1)
+texture = ExtResource("9_wo5hu")
+
 [node name="kraken" parent="." instance=ExtResource("4_4exim")]
-position = Vector2(356, 458)
+position = Vector2(-7, 167)
 
 [node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2(356, 458)
@@ -283,7 +293,7 @@ shape = SubResource("WorldBoundaryShape2D_ycd04")
 [node name="Right Wall" type="StaticBody2D" parent="."]
 
 [node name="Right Bound" type="CollisionShape2D" parent="Right Wall"]
-position = Vector2(19, 105)
+position = Vector2(23, 68)
 shape = SubResource("WorldBoundaryShape2D_uf8fy")
 
 [node name="SeaBackgroundByDigifishmusicEdited" type="AudioStreamPlayer" parent="."]
@@ -296,5 +306,3 @@ autoplay = true
 [connection signal="player_exited" from="platform/physics_for_player" to="Player" method="_on_platform_body_exited"]
 [connection signal="body_entered" from="water" to="Player" method="_on_water_body_entered"]
 [connection signal="body_exited" from="water" to="Player" method="_on_water_body_exited"]
-[connection signal="body_entered" from="Suction bubbles" to="Player" method="_on_suction_bubbles_body_entered"]
-[connection signal="body_exited" from="Suction bubbles" to="Player" method="_on_suction_bubbles_body_exited"]
