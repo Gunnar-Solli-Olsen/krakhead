@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlney3hswe83t"]
+
+[ext_resource type="Texture2D" uid="uid://dota02bai8x7e" path="res://icon.svg" id="1_4iadp"]
+
+[node name="Crate" type="Sprite2D"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_4iadp")

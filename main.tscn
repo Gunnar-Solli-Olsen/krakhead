@@ -31,6 +31,8 @@ height = 60.0
 [ext_resource type="Texture2D" uid="uid://dg6xf2ropyqwq" path="res://bubble.png" id="6_yhq7g"]
 [ext_resource type="PackedScene" uid="uid://c5u7ghp8ufh41" path="res://Debree/platform.tscn" id="7_lna6v"]
 [ext_resource type="Material" uid="uid://bmd4x5i780vtq" path="res://bubbleWhirl.tres" id="7_ti0xe"]
+[ext_resource type="PackedScene" uid="uid://fi2t86stg8va" path="res://Debree/Creates.tscn" id="8_rmh3k"]
+[ext_resource type="PackedScene" uid="uid://d2od5jwsh6n6p" path="res://Debree/deposit_area.tscn" id="9_jxd6x"]
 [ext_resource type="PackedScene" uid="uid://bjqt57vqlw5so" path="res://Hanck/Hanck.tscn" id="9_yd1pn"]
 >>>>>>> 515926311040af597acc0343e467c4bfd92a15d2
 
@@ -223,6 +225,18 @@ texture = ExtResource("11_hoc2d")
 
 [node name="platform" parent="." instance=ExtResource("7_lna6v")]
 
+[node name="Creates" parent="." instance=ExtResource("8_rmh3k")]
+position = Vector2(350, 3)
+
+[node name="DepositAreas" parent="." instance=ExtResource("9_jxd6x")]
+position = Vector2(-347, -8)
+
+[node name="DepositAreas2" parent="." instance=ExtResource("9_jxd6x")]
+position = Vector2(1070, -12)
+
 [connection signal="body_shape_entered" from="Suction bubbles" to="Player" method="_on_suction_bubbles_body_shape_entered"]
 [connection signal="body_shape_exited" from="Suction bubbles" to="Player" method="_on_suction_bubbles_body_shape_exited"]
->>>>>>> 515926311040af597acc0343e467c4bfd92a15d2
+[connection signal="body_shape_entered" from="Creates" to="Player" method="_on_creates_body_shape_entered"]
+[connection signal="body_shape_entered" from="Creates" to="Creates" method="_on_body_shape_entered"]
+[connection signal="recived_crate" from="DepositAreas" to="Player" method="_on_deposit_left"]
+[connection signal="recived_crate" from="DepositAreas2" to="Player" method="_on_deposit_right"]
