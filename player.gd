@@ -146,6 +146,7 @@ func _on_suction_bubbles_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		print("player is being sucked down")
 		is_in_suction_cone = true
+		$BubbleScream.play(0)
 
 # Called when the player exits the suction cone
 func _on_suction_bubbles_body_exited(body: Node) -> void:
@@ -154,6 +155,7 @@ func _on_suction_bubbles_body_exited(body: Node) -> void:
 		print("player is no longer being sucked down")
 
 		is_in_suction_cone = false
+		$BubbleScream.stop()
 
 
 # Update the water state when the player enters water
