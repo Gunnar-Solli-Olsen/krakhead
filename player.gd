@@ -9,7 +9,8 @@ signal on_platform
 @export var SWIM_GRAVITY = 100
 @export var SWIM_SPEED = 150
 
-const SUCTION_FORCE = 100
+const SUCTION_FORCE = 1000  # Stronger suction force to drag the player down
+const SWIM_LIMIT = -500  # Make swimming force weaker when inside suction zone
 @onready var _animated_sprite = $Sprite
 
 var min_x = 0
@@ -46,7 +47,7 @@ func _physics_process(delta):
 		
 
 	# If player enters water turn on water physics
-	if global_position.y > WATER_HEIGHT:
+	if global_position.y > 150:
 		is_in_water = true
 
 		if (not entered_water): # entering water should lower speed 
@@ -115,21 +116,12 @@ func _physics_process(delta):
 	move_and_slide()
 
 	# Check for the moving platform
-
-
-# Update the water state when the player enters water
-func _on_water_body_entered(body: Node2D) -> void:
-	print("player entered water")
-	$SwimmingPlayer.play(0.45)
-	$splash.play(0)
-	pass
 	#if body.name == "Player":
 	#	is_in_water = true
 
 # Update the water state when the player exits the water
-func _on_water_body_exited(body: Node2D) -> void:
+func _on_water_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	print("player exited water")
-
 	pass
 	#if body.name == "Player":
 	#	is_in_water = false
@@ -149,21 +141,19 @@ func _on_platform_body_exited(body: Node2D) -> void:
 		#emit_signal("player_exited", self)
 
 # Called when the player enters the suction cone
-#func _on_suction_bubbles_body_entered(body: Node2D) -> void:
-	#if body.name == "Player":
-		#is_in_suction_cone = true
-
-# Called when the player exits the suction cone
-#func _on_suction_bubbles_body_exited(body: Node) -> void:
-	#if body.name == "Player":
-		#is_in_suction_cone = false
-
-
-func _on_suction_bubbles_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_suction_bubbles_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		is_in_suction_cone = true
 
-
-func _on_suction_bubbles_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+# Called when the player exits the suction cone
+func _on_suction_bubbles_body_exited(body: Node) -> void:
 	if body.name == "Player":
 		is_in_suction_cone = false
+
+
+# Update the water state when the player enters water
+func _on_water_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	print("player entered water")
+	$SwimmingPlayer.play(0.45)
+	$splash.play(0)
+	pass # Replace with function body

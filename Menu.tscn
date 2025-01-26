@@ -61,8 +61,8 @@ layout_mode = 2
 text = "Quit"
 
 [node name="Beach-stock" type="Sprite2D" parent="."]
-position = Vector2(360.602, 240.068)
-scale = Vector2(1.17777, 1.17614)
+position = Vector2(485.602, 240.068)
+scale = Vector2(1.58627, 1.17614)
 texture = ExtResource("1_jgxew")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

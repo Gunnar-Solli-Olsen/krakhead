@@ -9,7 +9,7 @@ var water_level = 150       # Water level to control particle height
 
 func _ready():
 	# Validate nodes
-	particles = $Particles
+	particles = $GPUParticles2D
 	polygon_shape = $CollisionPolygon2D
 
 func _is_in_cone(target_position: Vector2) -> bool:

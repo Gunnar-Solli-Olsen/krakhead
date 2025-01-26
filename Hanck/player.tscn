@@ -1,0 +1,143 @@
+[gd_scene load_steps=23 format=3 uid="uid://ny3uhwak81yj"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_ifowg"]
+[ext_resource type="Texture2D" uid="uid://c1ul8vdmb2h1s" path="res://krakman/engaged.png" id="2_nilay"]
+[ext_resource type="Texture2D" uid="uid://3paqwxn4jwvs" path="res://krakman/swim.png" id="3_om0t4"]
+[ext_resource type="Texture2D" uid="uid://u27h1nwjswov" path="res://krakman/run.png" id="4_baq6b"]
+[ext_resource type="AudioStream" uid="uid://b01hgrkicdo" path="res://Audio/Making Bubble.wav" id="5_ju2t6"]
+[ext_resource type="AudioStream" uid="uid://la4tr0qn8ho3" path="res://Audio/splash-by-blaukreuz-6261.mp3" id="6_wqio0"]
+[ext_resource type="AudioStream" uid="uid://e2efddumqxmg" path="res://Audio/walking-on-wooden-floor-94493.mp3" id="7_san2c"]
+[ext_resource type="AudioStream" uid="uid://cksntjilvbdip" path="res://Audio/Swimming player.wav" id="8_bbhg2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fmul3"]
+atlas = ExtResource("2_nilay")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pw2ii"]
+atlas = ExtResource("2_nilay")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uesqo"]
+atlas = ExtResource("2_nilay")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwkjx"]
+atlas = ExtResource("3_om0t4")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0k75t"]
+atlas = ExtResource("3_om0t4")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7do5"]
+atlas = ExtResource("3_om0t4")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kxl3o"]
+atlas = ExtResource("3_om0t4")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7lkq"]
+atlas = ExtResource("4_baq6b")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8auv"]
+atlas = ExtResource("4_baq6b")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qs4sq"]
+atlas = ExtResource("4_baq6b")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xcku6"]
+atlas = ExtResource("4_baq6b")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a6db3"]
+atlas = ExtResource("4_baq6b")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_444yx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fmul3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pw2ii")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uesqo")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mwkjx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0k75t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w7do5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kxl3o")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.25,
+"texture": SubResource("AtlasTexture_b7lkq")
+}, {
+"duration": 0.25,
+"texture": SubResource("AtlasTexture_q8auv")
+}, {
+"duration": 0.25,
+"texture": SubResource("AtlasTexture_qs4sq")
+}, {
+"duration": 0.25,
+"texture": SubResource("AtlasTexture_xcku6")
+}, {
+"duration": 0.25,
+"texture": SubResource("AtlasTexture_a6db3")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dwavu"]
+radius = 8.0
+height = 60.0
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(290, 83)
+script = ExtResource("1_ifowg")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(3.00003, -3)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_444yx")
+animation = &"swim"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5, -4)
+shape = SubResource("CapsuleShape2D_dwavu")
+
+[node name="MakingBubble" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_ju2t6")
+
+[node name="splash" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_wqio0")
+
+[node name="WalkingOnPlatform" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_san2c")
+pitch_scale = 2.0
+
+[node name="SwimmingPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_bbhg2")
