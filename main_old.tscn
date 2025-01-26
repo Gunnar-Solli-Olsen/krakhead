@@ -1,12 +1,18 @@
+<<<<<<< HEAD
 [gd_scene load_steps=23 format=3 uid="uid://i8l28s3yteww"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_6pdqs"]
 [ext_resource type="Script" path="res://player.gd" id="1_8pri3"]
 [ext_resource type="Script" path="res://rigid_body_2d.gd" id="1_66dbi"]
 [ext_resource type="Texture2D" uid="uid://db2vm4aijcock" path="res://images/plank.png" id="3_8mx53"]
+=======
+[gd_scene load_steps=15 format=3 uid="uid://bjjafi3pbio1c"]
+
+>>>>>>> 515926311040af597acc0343e467c4bfd92a15d2
 [ext_resource type="Script" path="res://water.gd" id="3_ohyn7"]
 [ext_resource type="PackedScene" uid="uid://4gbtkfr6uoai" path="res://kraken/kraken.tscn" id="4_4exim"]
 [ext_resource type="Script" path="res://suction_bubbles.gd" id="5_qdt62"]
+<<<<<<< HEAD
 [ext_resource type="Texture2D" uid="uid://b3g4ypmudryur" path="res://idle1.svg" id="5_vemno"]
 [ext_resource type="Texture2D" uid="uid://dg6xf2ropyqwq" path="res://bubble.png" id="6_yhq7g"]
 [ext_resource type="Material" uid="uid://bmd4x5i780vtq" path="res://bubbleWhirl.tres" id="7_ti0xe"]
@@ -21,6 +27,14 @@ size = Vector2(18, 16)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dwavu"]
 radius = 8.0
 height = 60.0
+=======
+[ext_resource type="Texture2D" uid="uid://dg6xf2ropyqwq" path="res://bubble.png" id="6_yhq7g"]
+[ext_resource type="PackedScene" uid="uid://c5u7ghp8ufh41" path="res://Debree/platform.tscn" id="7_lna6v"]
+[ext_resource type="Material" uid="uid://bmd4x5i780vtq" path="res://bubbleWhirl.tres" id="7_ti0xe"]
+[ext_resource type="PackedScene" uid="uid://fi2t86stg8va" path="res://Debree/Creates.tscn" id="8_rmh3k"]
+[ext_resource type="PackedScene" uid="uid://d2od5jwsh6n6p" path="res://Debree/deposit_area.tscn" id="9_jxd6x"]
+[ext_resource type="PackedScene" uid="uid://bjqt57vqlw5so" path="res://Hanck/Hanck.tscn" id="9_yd1pn"]
+>>>>>>> 515926311040af597acc0343e467c4bfd92a15d2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b0w26"]
 size = Vector2(1433, 952)
@@ -55,6 +69,7 @@ script = ExtResource("1_6pdqs")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(360, 240)
+<<<<<<< HEAD
 
 [node name="platform" type="AnimatableBody2D" parent="."]
 light_mask = 524800
@@ -104,6 +119,9 @@ texture = ExtResource("5_vemno")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(5, -4)
 shape = SubResource("CapsuleShape2D_dwavu")
+=======
+zoom = Vector2(0.5, 0.5)
+>>>>>>> 515926311040af597acc0343e467c4bfd92a15d2
 
 [node name="water" type="Area2D" parent="."]
 position = Vector2(328, 300)
@@ -143,6 +161,7 @@ position = Vector2(4, -11)
 shape = SubResource("RectangleShape2D_fyj7d")
 
 [node name="kraken" parent="." instance=ExtResource("4_4exim")]
+<<<<<<< HEAD
 position = Vector2(-7, 167)
 
 [node name="Suction bubbles" type="Area2D" parent="kraken"]
@@ -163,6 +182,9 @@ amount = 15
 process_material = ExtResource("7_ti0xe")
 texture = ExtResource("6_yhq7g")
 lifetime = 5.0
+=======
+position = Vector2(331, 680)
+>>>>>>> 515926311040af597acc0343e467c4bfd92a15d2
 
 [node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2(356, 458)
@@ -183,6 +205,7 @@ shape = SubResource("WorldBoundaryShape2D_ycd04")
 position = Vector2(23, 68)
 shape = SubResource("WorldBoundaryShape2D_uf8fy")
 
+<<<<<<< HEAD
 [node name="BubblepussA" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(597, 424)
@@ -197,3 +220,23 @@ texture = ExtResource("11_hoc2d")
 [connection signal="body_exited" from="water" to="Player" method="_on_water_body_exited"]
 [connection signal="body_entered" from="kraken/Suction bubbles" to="Player" method="_on_suction_bubbles_body_entered"]
 [connection signal="body_exited" from="kraken/Suction bubbles" to="Player" method="_on_suction_bubbles_body_exited"]
+=======
+[node name="Player" parent="." instance=ExtResource("9_yd1pn")]
+
+[node name="platform" parent="." instance=ExtResource("7_lna6v")]
+
+[node name="Creates" parent="." instance=ExtResource("8_rmh3k")]
+position = Vector2(350, 3)
+
+[node name="DepositAreas" parent="." instance=ExtResource("9_jxd6x")]
+position = Vector2(-347, -8)
+
+[node name="DepositAreas2" parent="." instance=ExtResource("9_jxd6x")]
+position = Vector2(1070, -12)
+
+[connection signal="body_shape_entered" from="Suction bubbles" to="Player" method="_on_suction_bubbles_body_shape_entered"]
+[connection signal="body_shape_exited" from="Suction bubbles" to="Player" method="_on_suction_bubbles_body_shape_exited"]
+[connection signal="body_shape_entered" from="Creates" to="Player" method="_on_creates_body_shape_entered"]
+[connection signal="body_shape_entered" from="Creates" to="Creates" method="_on_body_shape_entered"]
+[connection signal="recived_crate" from="DepositAreas" to="Player" method="_on_deposit_left"]
+[connection signal="recived_crate" from="DepositAreas2" to="Player" method="_on_deposit_right"]
