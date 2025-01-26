@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://cp7y5ilsnsmdv"]
+
+[ext_resource type="Script" path="res://Debree/Scripts/PileOfCreates.gd" id="1_204ck"]
+[ext_resource type="PackedScene" uid="uid://bcdkr4p6q5k8w" path="res://Debree/crate.tscn" id="2_vvfgn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_geesr"]
+radius = 30.0
+
+[node name="Creates" type="Area2D"]
+script = ExtResource("1_204ck")
+
+[node name="creates collition" type="CollisionShape2D" parent="."]
+position = Vector2(1, -23)
+shape = SubResource("CircleShape2D_geesr")
+
+[node name="Crate" parent="." instance=ExtResource("2_vvfgn")]
+position = Vector2(27, -31)
+
+[node name="Crate2" parent="." instance=ExtResource("2_vvfgn")]
+position = Vector2(2, -32)
+
+[node name="Crate3" parent="." instance=ExtResource("2_vvfgn")]
+position = Vector2(-22, -32)
+
+[node name="Crate4" parent="." instance=ExtResource("2_vvfgn")]
+position = Vector2(-38, -14)
+
+[node name="Crate5" parent="." instance=ExtResource("2_vvfgn")]
+position = Vector2(-16, -12)
+
+[node name="Crate6" parent="." instance=ExtResource("2_vvfgn")]
+position = Vector2(5, -13)
+
+[node name="Crate7" parent="." instance=ExtResource("2_vvfgn")]
+position = Vector2(24, -13)
+
+[node name="Crate8" parent="." instance=ExtResource("2_vvfgn")]
+position = Vector2(44, -14)

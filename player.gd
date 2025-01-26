@@ -13,6 +13,8 @@ const SUCTION_FORCE = 1000  # Stronger suction force to drag the player down
 const SWIM_LIMIT = -500  # Make swimming force weaker when inside suction zone
 @onready var _animated_sprite = $Sprite
 
+var HAS_CRATE = false
+
 var min_x = 0
 var max_x = 715
 var min_y = 0
@@ -118,6 +120,16 @@ func _physics_process(delta):
 	# Check for the moving platform
 	#if body.name == "Player":
 	#	is_in_water = true
+func pick_up_crate():
+	HAS_CRATE = true
+	get_node("Crate").show()
+	Global.HAS_CRATE = true
+	
+func place_down_crate():
+	HAS_CRATE = false
+	get_node("Crate").hide()
+	Global.HAS_CRATE = false
+	Global.Score += 1
 
 # Update the water state when the player exits the water
 func _on_water_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
@@ -164,3 +176,13 @@ func _on_water_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index:
 	$SwimmingPlayer.play(0.45)
 	$splash.play(0)
 	pass # Replace with function body
+
+
+func _crate_pic_up(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	if HAS_CRATE == false:
+		pick_up_crate()
+
+
+func _on_deposit_areas_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	if HAS_CRATE == true:
+		place_down_crate()

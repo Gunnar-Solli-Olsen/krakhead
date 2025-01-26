@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://i8l28s3yteww"]
+[gd_scene load_steps=19 format=3 uid="uid://i8l28s3yteww"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_6pdqs"]
 [ext_resource type="Script" path="res://rigid_body_2d.gd" id="1_66dbi"]
@@ -9,7 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://4gbtkfr6uoai" path="res://kraken/kraken.tscn" id="4_4exim"]
 [ext_resource type="Texture2D" uid="uid://ei8fc08mod4n" path="res://images/BGWater.png" id="8_7njjf"]
 [ext_resource type="Texture2D" uid="uid://cvmajl01wc33y" path="res://images/BGSky.png" id="9_wo5hu"]
-[ext_resource type="AudioStream" uid="uid://btpqargl26odu" path="res://Audio/Sea background by digifishmusic edited .wav" id="14_5uqvs"]
+[ext_resource type="PackedScene" uid="uid://cp7y5ilsnsmdv" path="res://Debree/Creates.tscn" id="10_r4y6v"]
+[ext_resource type="PackedScene" uid="uid://151nnpgtvgmt" path="res://Debree/deposit_area.tscn" id="11_4mgkq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e1cnx"]
 size = Vector2(149.5, 20)
@@ -76,6 +77,8 @@ shape = SubResource("RectangleShape2D_m51t6")
 [node name="Player" parent="." instance=ExtResource("4_1nulm")]
 top_level = true
 z_index = 3
+collision_layer = 3
+collision_mask = 3
 
 [node name="water" type="Area2D" parent="."]
 position = Vector2(328, 300)
@@ -132,8 +135,19 @@ position = Vector2(19, 105)
 shape = SubResource("WorldBoundaryShape2D_uf8fy")
 
 [node name="SeaBackgroundByDigifishmusicEdited" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("14_5uqvs")
 autoplay = true
+
+[node name="Creates" parent="." instance=ExtResource("10_r4y6v")]
+top_level = true
+z_index = 2
+position = Vector2(353, 143)
+collision_layer = 0
+collision_mask = 2
+
+[node name="DepositAreas" parent="." instance=ExtResource("11_4mgkq")]
+position = Vector2(26, 118)
+collision_layer = 0
+collision_mask = 2
 
 [connection signal="body_entered" from="platform/physics_for_player" to="Player" method="_on_platform_body_entered"]
 [connection signal="body_exited" from="platform/physics_for_player" to="Player" method="_on_platform_body_exited"]
@@ -141,3 +155,7 @@ autoplay = true
 [connection signal="body_shape_exited" from="water" to="Player" method="_on_water_body_shape_exited"]
 [connection signal="bubble_enter" from="kraken" to="Player" method="_on_suction_bubbles_body_entered"]
 [connection signal="bubble_exit" from="kraken" to="Player" method="_on_suction_bubbles_body_exited"]
+[connection signal="body_shape_entered" from="Creates" to="Player" method="_crate_pic_up"]
+[connection signal="body_shape_entered" from="Creates" to="Creates" method="_on_body_shape_entered"]
+[connection signal="body_shape_entered" from="DepositAreas" to="Player" method="_on_deposit_areas_body_shape_entered"]
+[connection signal="body_shape_entered" from="DepositAreas" to="Creates" method="_placed_crates"]
