@@ -4,18 +4,18 @@ extends Area2D
 var suction_strength = 150  # Strength of the suction force
 var suction_radius = 200    # Radius of suction effect
 var particles: GPUParticles2D  # Reference to the particle system
-var polygon_shape: CollisionPolygon2D  # Or Polygon2D
-var water_level = 150 # Water level to control particle height
+var polygon_shape: CollisionPolygon2D  # Reference to the collision polygon
+var water_level = 150       # Water level to control particle height
 
 func _ready():
 	# Validate nodes
 	particles = $Particles
 	polygon_shape = $CollisionPolygon2D
 
-func _is_in_cone(position: Vector2) -> bool:
+func _is_in_cone(target_position: Vector2) -> bool:
 	if not polygon_shape or not polygon_shape.shape:
 		return false
-	return polygon_shape.shape.contains_point(to_local(position))
+	return polygon_shape.shape.contains_point(to_local(target_position))
 
 func _on_suction_bubbles_body_entered(body: Node2D):
 	if body.name == "Player" and _is_in_cone(body.global_position):
@@ -35,6 +35,10 @@ func emit_particles_from_polygon():
 	for point in polygon_shape.polygon:
 		emit_particle_at_position(point)
 
-func emit_particle_at_position(position: Vector2):
-	particles.global_position = global_position + to_local(position)
+func emit_particle_at_position(local_point: Vector2):
+	# Emit particles relative to the local position
+	particles.position = to_local(local_point)
 	particles.emitting = true
+
+func _process(_delta):
+	print("SuctionBubbles position:", global_position)
