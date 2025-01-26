@@ -39,6 +39,3 @@ func emit_particle_at_position(local_point: Vector2):
 	# Emit particles relative to the local position
 	particles.position = to_local(local_point)
 	particles.emitting = true
-
-func _process(_delta):
-	print("SuctionBubbles position:", global_position)
