@@ -142,12 +142,17 @@ func _on_platform_body_exited(body: Node2D) -> void:
 
 # Called when the player enters the suction cone
 func _on_suction_bubbles_body_entered(body: Node2D) -> void:
+	print("player is being sucked down")
 	if body.name == "Player":
+		print("player is being sucked down")
 		is_in_suction_cone = true
 
 # Called when the player exits the suction cone
 func _on_suction_bubbles_body_exited(body: Node) -> void:
+	print("player is no longer being sucked down")
 	if body.name == "Player":
+		print("player is no longer being sucked down")
+
 		is_in_suction_cone = false
 
 

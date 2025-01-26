@@ -65,3 +65,5 @@ script = ExtResource("8_5odni")
 [connection signal="body_exited" from="Suction bubbles" to="." method="_on_suction_bubbles_body_exited"]
 [connection signal="body_shape_entered" from="Suction bubbles" to="." method="_on_suction_bubbles_body_entered"]
 [connection signal="body_shape_exited" from="Suction bubbles" to="." method="_on_suction_bubbles_body_exited"]
+[connection signal="tree_entered" from="Suction bubbles/CollisionPolygon2D" to="Suction bubbles" method="_on_suction_bubbles_body_entered"]
+[connection signal="tree_exited" from="Suction bubbles/CollisionPolygon2D" to="." method="_on_suction_bubbles_body_exited"]

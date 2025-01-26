@@ -23,11 +23,14 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_suction_bubbles_body_entered(body: Node2D) -> void:
-	bubble_enter.emit()
+	emit_signal("bubble_enter", body)
+	print("sent suction signal")
 	pass # Replace with function body.
 
 
 func _on_suction_bubbles_body_exited(body: Node2D) -> void:
-	bubble_exit.emit()
+	print("sent stop suction signal")
+	emit_signal("bubble_exit", body)
+	
 
 	pass # Replace with function body.
