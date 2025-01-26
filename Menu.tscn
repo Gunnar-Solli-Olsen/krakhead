@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://mbgu7osyyyxa"]
+[gd_scene load_steps=8 format=3 uid="uid://mbgu7osyyyxa"]
 
 [ext_resource type="Script" path="res://menu.gd" id="1_j2w51"]
 [ext_resource type="Texture2D" uid="uid://biiqdgppbbyq5" path="res://beach-stock.jpg" id="1_jgxew"]
@@ -26,6 +26,8 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Theme" id="Theme_nd712"]
+
 [node name="Menu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -41,20 +43,16 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 120.0
-offset_top = -220.0
-offset_right = 183.0
-offset_bottom = -119.0
+offset_left = 105.0
+offset_top = -255.0
+offset_right = 168.0
+offset_bottom = -154.0
 grow_vertical = 0
 alignment = 1
 
 [node name="Start" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Start"
-
-[node name="Credits" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "Credits"
 
 [node name="Quit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -72,6 +70,19 @@ scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_fti2m")
 animation = &"new_animation"
 
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 343.0
+offset_right = 273.0
+offset_bottom = 474.0
+theme = SubResource("Theme_nd712")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "MADE BY 
+Jens Cristian Valen Leynse
+Kristian Chaves Holmberg
+Gunnar Solli Olsen
+Marius Le Gouallec"
+
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
