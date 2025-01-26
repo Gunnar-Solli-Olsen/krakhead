@@ -13,6 +13,7 @@ const SUCTION_FORCE = 1000  # Stronger suction force to drag the player down
 const SWIM_LIMIT = -500  # Make swimming force weaker when inside suction zone
 
 
+var Has_Crate := false
 var min_x = 0
 var max_x = 715
 var min_y = 0
@@ -134,6 +135,19 @@ func _on_platform_body_exited(body: Node2D) -> void:
 		#is_in_suction_cone = false
 
 
+func _toggle_crate():
+	if Has_Crate == false:
+		get_node("Crate").show()
+	if Has_Crate == true:
+		get_node("Crate").hide()
+		
+func _place_crate_in_pile():
+	if Has_Crate == true:
+		_toggle_crate()
+		Has_Crate == false
+		Global.Score += 1
+
+
 func _on_suction_bubbles_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if body.name == "Player":
 		is_in_suction_cone = true
@@ -142,3 +156,16 @@ func _on_suction_bubbles_body_shape_entered(body_rid: RID, body: Node2D, body_sh
 func _on_suction_bubbles_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if body.name == "Player":
 		is_in_suction_cone = false
+
+
+func _on_creates_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	_toggle_crate()
+	Has_Crate = true
+
+
+func _on_deposit_left() -> void:
+	_place_crate_in_pile()
+
+
+func _on_deposit_right() -> void:
+	_place_crate_in_pile()
