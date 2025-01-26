@@ -7,37 +7,34 @@ var particles: GPUParticles2D  # Reference to the particle system
 var polygon_shape: CollisionPolygon2D  # Or Polygon2D
 var water_level = 150 # Water level to control particle height
 
+func _ready():
+	# Validate nodes
+	particles = $Particles
+	polygon_shape = $CollisionPolygon2D
 
 func _is_in_cone(position: Vector2) -> bool:
-	print("entered suction")
-	if polygon_shape and polygon_shape.shape:
-		var local_position = to_local(position)
-		return polygon_shape.shape.contains_point(local_position)
-	return false
+	if not polygon_shape or not polygon_shape.shape:
+		return false
+	return polygon_shape.shape.contains_point(to_local(position))
 
-
-# Function to emit particles from points inside the polygon
-func emit_particles_from_polygon(polygon_points: Array):
-	# Iterate through each point in the polygon and emit a particle
-	for point in polygon_points:
-		emit_particle_at_position(point)
-
-# Emit particle at given position inside the polygon
-func emit_particle_at_position(position: Vector2):
-	# Set the particle to emit from the specific position
-	particles.position = position
-	particles.emitting = true
-
-
-func _on_suction_bubbles_body_entered(body: Node2D) -> void:
-	print("entered cone")
+func _on_suction_bubbles_body_entered(body: Node2D):
 	if body.name == "Player" and _is_in_cone(body.global_position):
 		body.add_to_group("in_suction_cone")
-		body.start_suction_effect(self)
+		if body.has_method("start_suction_effect"):
+			body.start_suction_effect(self)
 
-
-func _on_suction_bubbles_body_exited(body: Node2D) -> void:
-	print("left cone")
-	if body.name == "Player" and not _is_in_cone(body.global_position):
+func _on_suction_bubbles_body_exited(body: Node2D):
+	if body.name == "Player":
 		body.remove_from_group("in_suction_cone")
-		body.stop_suction_effect(self)
+		if body.has_method("stop_suction_effect"):
+			body.stop_suction_effect(self)
+
+func emit_particles_from_polygon():
+	if not polygon_shape or not polygon_shape.polygon:
+		return
+	for point in polygon_shape.polygon:
+		emit_particle_at_position(point)
+
+func emit_particle_at_position(position: Vector2):
+	particles.global_position = global_position + to_local(position)
+	particles.emitting = true
