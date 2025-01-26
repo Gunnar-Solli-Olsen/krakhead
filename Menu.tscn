@@ -1,0 +1,77 @@
+[gd_scene load_steps=7 format=3 uid="uid://mbgu7osyyyxa"]
+
+[ext_resource type="Script" path="res://menu.gd" id="1_j2w51"]
+[ext_resource type="Texture2D" uid="uid://biiqdgppbbyq5" path="res://beach-stock.jpg" id="1_jgxew"]
+[ext_resource type="Texture2D" uid="uid://cecir3rewv2j6" path="res://idle.png" id="2_erly0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ou4jo"]
+atlas = ExtResource("2_erly0")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bobyj"]
+atlas = ExtResource("2_erly0")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fti2m"]
+animations = [{
+"frames": [{
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_ou4jo")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_bobyj")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j2w51")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 120.0
+offset_top = -220.0
+offset_right = 183.0
+offset_bottom = -119.0
+grow_vertical = 0
+alignment = 1
+
+[node name="Start" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Start"
+
+[node name="Credits" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Credits"
+
+[node name="Quit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="Beach-stock" type="Sprite2D" parent="."]
+position = Vector2(360.602, 240.068)
+scale = Vector2(1.17777, 1.17614)
+texture = ExtResource("1_jgxew")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 2
+position = Vector2(276, 302)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_fti2m")
+animation = &"new_animation"
+
+[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
