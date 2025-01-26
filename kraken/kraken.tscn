@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://kraken/kraken_scripts/state_machine.gd" id="3_jt63k"]
 [ext_resource type="Script" path="res://kraken/kraken_scripts/krakenIdle.gd" id="4_n6b3k"]
 [ext_resource type="Script" path="res://suction_bubbles.gd" id="5_pi7x6"]
-[ext_resource type="Material" uid="uid://bmd4x5i780vtq" path="res://bubbleWhirl.tres" id="6_luju2"]
+[ext_resource type="Material" uid="uid://co0jkcwsp6fmv" path="res://bubbleWhirl.tres" id="6_luju2"]
 [ext_resource type="Texture2D" uid="uid://dg6xf2ropyqwq" path="res://bubble.png" id="7_1fo8m"]
 [ext_resource type="Script" path="res://kraken/gpu_particles_2d.gd" id="8_5odni"]
 

@@ -1,16 +1,16 @@
-[gd_scene load_steps=19 format=3 uid="uid://i8l28s3yteww"]
+[gd_scene load_steps=19 format=3 uid="uid://bjjafi3pbio1c"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_6pdqs"]
 [ext_resource type="Script" path="res://rigid_body_2d.gd" id="1_66dbi"]
 [ext_resource type="Texture2D" uid="uid://db2vm4aijcock" path="res://images/plank.png" id="3_8mx53"]
 [ext_resource type="Script" path="res://water.gd" id="3_ohyn7"]
 [ext_resource type="Script" path="res://platform_hitbox.gd" id="3_w2vet"]
-[ext_resource type="PackedScene" uid="uid://b7you7yhh1qd5" path="res://Hanck/player.tscn" id="4_1nulm"]
+[ext_resource type="PackedScene" uid="uid://ny3uhwak81yj" path="res://Hanck/player.tscn" id="4_1nulm"]
 [ext_resource type="PackedScene" uid="uid://4gbtkfr6uoai" path="res://kraken/kraken.tscn" id="4_4exim"]
 [ext_resource type="Texture2D" uid="uid://ei8fc08mod4n" path="res://images/BGWater.png" id="8_7njjf"]
 [ext_resource type="Texture2D" uid="uid://cvmajl01wc33y" path="res://images/BGSky.png" id="9_wo5hu"]
-[ext_resource type="PackedScene" uid="uid://cp7y5ilsnsmdv" path="res://Debree/Creates.tscn" id="10_r4y6v"]
-[ext_resource type="PackedScene" uid="uid://151nnpgtvgmt" path="res://Debree/deposit_area.tscn" id="11_4mgkq"]
+[ext_resource type="PackedScene" path="res://Debree/Creates.tscn" id="10_r4y6v"]
+[ext_resource type="PackedScene" path="res://Debree/deposit_area.tscn" id="11_4mgkq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e1cnx"]
 size = Vector2(149.5, 20)

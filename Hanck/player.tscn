@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://b7you7yhh1qd5"]
+[gd_scene load_steps=25 format=3 uid="uid://ny3uhwak81yj"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_ifowg"]
 [ext_resource type="Texture2D" uid="uid://c1ul8vdmb2h1s" path="res://krakman/engaged.png" id="2_nilay"]
@@ -9,7 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://e2efddumqxmg" path="res://Audio/walking-on-wooden-floor-94493.mp3" id="7_san2c"]
 [ext_resource type="AudioStream" uid="uid://cksntjilvbdip" path="res://Audio/Swimming player.wav" id="8_bbhg2"]
 [ext_resource type="AudioStream" uid="uid://c5ky6g51ydqq4" path="res://Audio/Screaming underwater with bubbles.wav" id="9_ets07"]
-[ext_resource type="PackedScene" uid="uid://bcdkr4p6q5k8w" path="res://Debree/crate.tscn" id="9_exa4x"]
+[ext_resource type="PackedScene" path="res://Debree/crate.tscn" id="9_exa4x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fmul3"]
 atlas = ExtResource("2_nilay")
