@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bsrbb4tfocsgg"]
+[gd_scene load_steps=4 format=3 uid="uid://dva7hwoxbgujh"]
 
+[ext_resource type="Script" path="res://gameover.gd" id="1_1er2t"]
 [ext_resource type="Texture2D" uid="uid://bhw7w5sqqs31e" path="res://bubblepuss_a.png" id="1_mx7dp"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dmnwl"]
@@ -13,20 +14,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_1er2t")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0
-offset_right = 717.0
+offset_right = 781.0
 offset_bottom = 480.0
 color = Color(0.05, 0.05, 0.05, 1)
 
 [node name="Label" type="Label" parent="ColorRect"]
 layout_mode = 0
-offset_left = 63.0
-offset_top = 81.0
-offset_right = 654.0
-offset_bottom = 160.0
-text = "GAME OVER "
+offset_left = 93.0
+offset_top = 85.0
+offset_right = 692.0
+offset_bottom = 222.0
+text = "Victory"
 label_settings = SubResource("LabelSettings_dmnwl")
 horizontal_alignment = 1
 
@@ -45,11 +47,11 @@ grow_horizontal = 2
 grow_vertical = 0
 alignment = 1
 
-[node name="Button2" type="Button" parent="ColorRect/HBoxContainer"]
+[node name="exit" type="Button" parent="ColorRect/HBoxContainer"]
 layout_mode = 2
-text = "Exit"
+text = "Main Menu"
 
-[node name="Button" type="Button" parent="ColorRect/HBoxContainer"]
+[node name="replay" type="Button" parent="ColorRect/HBoxContainer"]
 layout_mode = 2
 text = "Play Again"
 
@@ -58,9 +60,12 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 273.0
-offset_top = -64.0
-offset_right = 454.0
-offset_bottom = 70.0
+offset_left = 303.0
+offset_top = -60.0
+offset_right = 484.0
+offset_bottom = 74.0
 grow_vertical = 2
 texture = ExtResource("1_mx7dp")
+
+[connection signal="pressed" from="ColorRect/HBoxContainer/exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="ColorRect/HBoxContainer/replay" to="." method="_on_replay_pressed"]

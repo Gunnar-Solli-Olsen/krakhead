@@ -12,6 +12,7 @@ signal on_platform
 const SUCTION_FORCE = 1000  # Stronger suction force to drag the player down
 const SWIM_LIMIT = -500  # Make swimming force weaker when inside suction zone
 @onready var _animated_sprite = $Sprite
+const game_over = preload("res://Gameover.tscn")
 
 var HAS_CRATE = false
 
@@ -29,7 +30,7 @@ var entered_water = false
 
 var current_platform : StaticBody2D = null
 var platform_velocity: Vector2 = Vector2.ZERO
-
+var local_score = 0 
 
 func _ready():
 	# Ensure the player is rendered above the water (higher value)
@@ -38,6 +39,8 @@ func _ready():
 
 
 func _physics_process(delta):
+	if local_score > 7:
+		get_tree().change_scene_to_packed(game_over)
 	# Horizontal movement
 	var direction = Vector2.ZERO
 	if Input.is_action_pressed("ui_left"):
@@ -131,6 +134,8 @@ func place_down_crate():
 	Global.HAS_CRATE = false
 	Global.Score += 1
 
+
+
 # Update the water state when the player exits the water
 func _on_water_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	print("player exited water")
@@ -186,3 +191,4 @@ func _crate_pic_up(body_rid: RID, body: Node2D, body_shape_index: int, local_sha
 func _on_deposit_areas_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if HAS_CRATE == true:
 		place_down_crate()
+		local_score+=1

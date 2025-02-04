@@ -1,9 +1,9 @@
 extends Control
-var main_preload = load("res://main.tscn")
+
 var exit = load("res://Menu.tscn")
+var replay = load("res://main.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$AnimatedSprite2D.play("new_animation")
 	pass # Replace with function body.
 
 
@@ -12,10 +12,11 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_start_pressed() -> void:
-	get_tree().change_scene_to_packed(main_preload)
+func _on_exit_pressed() -> void:
+	get_tree().change_scene_to_packed(exit)
 	pass # Replace with function body.
 
-func _on_quit_pressed() -> void:
-	get_tree().quit()
+
+func _on_replay_pressed() -> void:
+	get_tree().change_scene_to_packed(replay)
 	pass # Replace with function body.

@@ -16,3 +16,4 @@ func _deposit_create():
 func _on_Hanck_enter(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if body.Has_Crate:
 		_deposit_create()
+		
